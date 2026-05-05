@@ -1,8 +1,8 @@
+using Microsoft.Maui.Controls;
 using MauiDesktopApp.ViewModels;
 
 #if WINDOWS
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
 using Windows.System;
 #endif
 

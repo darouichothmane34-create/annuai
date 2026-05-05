@@ -33,7 +33,7 @@ public partial class AdminDashboardViewModel : ObservableObject
     [ObservableProperty] private string _salariePortable = string.Empty;
     [ObservableProperty] private string _salarieEmail = string.Empty;
     [ObservableProperty] private Site? _salarieSite;
-    [ObservableProperty] private Service? _salarieService;
+    [ObservableProperty] private Service? _selectedSalarieService;
 
     [ObservableProperty] private string _statusMessage = string.Empty;
 
@@ -143,7 +143,7 @@ public partial class AdminDashboardViewModel : ObservableObject
         if (!ValidateSalarie()) return;
         try
         {
-            await _salarieService.AddAsync(new Salarie { Prenom = SalariePrenom.Trim(), Nom = SalarieNom.Trim(), TelephoneFixe = SalarieFixe.Trim(), TelephonePortable = SalariePortable.Trim(), Email = SalarieEmail.Trim(), SiteId = SalarieSite!.Id, ServiceId = SalarieService!.Id });
+            await _salarieService.AddAsync(new Salarie { Prenom = SalariePrenom.Trim(), Nom = SalarieNom.Trim(), TelephoneFixe = SalarieFixe.Trim(), TelephonePortable = SalariePortable.Trim(), Email = SalarieEmail.Trim(), SiteId = SalarieSite!.Id, ServiceId = SelectedSalarieService!.Id });
             ClearSalarieForm();
             await RefreshSalariesAsync();
         }
@@ -162,7 +162,7 @@ public partial class AdminDashboardViewModel : ObservableObject
             SelectedSalarie.TelephonePortable = SalariePortable.Trim();
             SelectedSalarie.Email = SalarieEmail.Trim();
             SelectedSalarie.SiteId = SalarieSite!.Id;
-            SelectedSalarie.ServiceId = SalarieService!.Id;
+            SelectedSalarie.ServiceId = SelectedSalarieService!.Id;
             await _salarieService.UpdateAsync(SelectedSalarie);
             await RefreshSalariesAsync();
         }
@@ -207,7 +207,7 @@ public partial class AdminDashboardViewModel : ObservableObject
         if (value is null) return;
         SalariePrenom = value.Prenom; SalarieNom = value.Nom; SalarieFixe = value.TelephoneFixe; SalariePortable = value.TelephonePortable; SalarieEmail = value.Email;
         SalarieSite = Sites.FirstOrDefault(s => s.Id == value.SiteId);
-        SalarieService = Services.FirstOrDefault(s => s.Id == value.ServiceId);
+        SelectedSalarieService = Services.FirstOrDefault(s => s.Id == value.ServiceId);
     }
 
     private async Task RefreshSitesAsync() { Sites.Clear(); foreach (var i in await _siteService.GetAllAsync()) Sites.Add(i); }
@@ -215,10 +215,10 @@ public partial class AdminDashboardViewModel : ObservableObject
     private async Task RefreshSalariesAsync() { Salaries.Clear(); foreach (var i in await _salarieService.GetAllAsync()) Salaries.Add(i); }
     private bool ValidateSalarie()
     {
-        if (string.IsNullOrWhiteSpace(SalariePrenom) || string.IsNullOrWhiteSpace(SalarieNom) || string.IsNullOrWhiteSpace(SalarieEmail) || SalarieSite is null || SalarieService is null)
+        if (string.IsNullOrWhiteSpace(SalariePrenom) || string.IsNullOrWhiteSpace(SalarieNom) || string.IsNullOrWhiteSpace(SalarieEmail) || SalarieSite is null || SelectedSalarieService is null)
         { StatusMessage = "Prénom, nom, email, site et service sont obligatoires."; return false; }
         return true;
     }
-    private void ClearSalarieForm() { SalariePrenom = SalarieNom = SalarieFixe = SalariePortable = SalarieEmail = string.Empty; SalarieSite = null; SalarieService = null; }
+    private void ClearSalarieForm() { SalariePrenom = SalarieNom = SalarieFixe = SalariePortable = SalarieEmail = string.Empty; SalarieSite = null; SelectedSalarieService = null; }
     private Task LogErrorAsync(string action, Exception ex) => _logService.WriteErrorAsync($"{action} failed: {ex.Message}");
 }

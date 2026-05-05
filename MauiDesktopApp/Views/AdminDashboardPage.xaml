@@ -48,7 +48,7 @@
             <Grid Grid.Row="1" ColumnDefinitions="2*,*,*,Auto,Auto,Auto,Auto" ColumnSpacing="8">
                 <Entry Placeholder="Email" Text="{Binding SalarieEmail}" />
                 <Picker Grid.Column="1" Title="Site" ItemsSource="{Binding Sites}" ItemDisplayBinding="{Binding Nom}" SelectedItem="{Binding SalarieSite}" />
-                <Picker Grid.Column="2" Title="Service" ItemsSource="{Binding Services}" ItemDisplayBinding="{Binding Nom}" SelectedItem="{Binding SalarieService}" />
+                <Picker Grid.Column="2" Title="Service" ItemsSource="{Binding Services}" ItemDisplayBinding="{Binding Nom}" SelectedItem="{Binding SelectedSalarieService}" />
                 <Button Grid.Column="3" Text="Ajouter" Command="{Binding AddSalarieCommand}" />
                 <Button Grid.Column="4" Text="Modifier" Command="{Binding UpdateSalarieCommand}" />
                 <Button Grid.Column="5" Text="Supprimer" Command="{Binding DeleteSalarieCommand}" />

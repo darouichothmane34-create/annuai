@@ -1,3 +1,6 @@
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
 using MauiDesktopApp.Data;
 using MauiDesktopApp.Services;
 using MauiDesktopApp.ViewModels;
