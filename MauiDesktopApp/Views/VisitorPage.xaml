@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiDesktopApp.ViewModels"
+             x:Class="MauiDesktopApp.Views.VisitorPage"
+             x:DataType="vm:VisitorViewModel"
+             Title="Annuaire - Visiteur">
+
+    <Grid Padding="16" RowDefinitions="Auto,Auto,Auto,*" RowSpacing="12">
+
+        <Label Text="Recherche salarié"
+               FontSize="20"
+               FontAttributes="Bold" />
+
+        <Grid Grid.Row="1" ColumnDefinitions="2*,1*,1*,Auto" ColumnSpacing="10">
+            <Entry Grid.Column="0"
+                   Placeholder="Nom, prénom, email..."
+                   Text="{Binding SearchText}" />
+
+            <Picker Grid.Column="1"
+                    Title="Site"
+                    ItemsSource="{Binding Sites}"
+                    ItemDisplayBinding="{Binding Nom}"
+                    SelectedItem="{Binding SelectedSite}" />
+
+            <Picker Grid.Column="2"
+                    Title="Service"
+                    ItemsSource="{Binding Services}"
+                    ItemDisplayBinding="{Binding Nom}"
+                    SelectedItem="{Binding SelectedService}" />
+
+            <Button Grid.Column="3"
+                    Text="Rechercher"
+                    Command="{Binding SearchCommand}" />
+        </Grid>
+
+        <Grid Grid.Row="2" ColumnDefinitions="2*,3*" ColumnSpacing="12" HeightRequest="480">
+
+            <CollectionView Grid.Column="0"
+                            ItemsSource="{Binding SearchResults}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSalarie}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,4" BorderColor="#DDDDDD">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding Nom}" FontAttributes="Bold" />
+                                <Label Text="{Binding Prenom}" />
+                                <Label Text="{Binding Service.Nom}" FontSize="12" TextColor="#666666" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Frame Grid.Column="1" Padding="14" BorderColor="#CCCCCC">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Détail salarié" FontSize="18" FontAttributes="Bold" />
+
+                    <Label Text="Nom" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedSalarie.Nom}" />
+
+                    <Label Text="Prénom" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedSalarie.Prenom}" />
+
+                    <Label Text="Téléphone fixe" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedSalarie.TelephoneFixe}" />
+
+                    <Label Text="Téléphone portable" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedSalarie.TelephonePortable}" />
+
+                    <Label Text="Email" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedSalarie.Email}" />
+
+                    <Label Text="Service" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedSalarie.Service.Nom}" />
+
+                    <Label Text="Site" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedSalarie.Site.Nom}" />
+
+                    <Button Text="Exporter en PDF" Command="{Binding ExportPdfCommand}" />
+                    <Label Text="{Binding ExportStatus}" TextColor="Green" FontSize="12" />
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>
