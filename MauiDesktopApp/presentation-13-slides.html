@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Présentation Projet AnnuAI - 13 slides</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
+    .slides { counter-reset: slide; }
+    section { min-height:100vh; padding:48px; border-bottom:1px solid #333; }
+    h1,h2 { color:#7dd3fc; }
+    ul { line-height:1.7; }
+    .slide-number::before { counter-increment: slide; content:"Slide " counter(slide) " / 13"; color:#9ca3af; font-size:14px; }
+    code { background:#1f2937; padding:2px 6px; border-radius:4px; }
+  </style>
+</head>
+<body>
+  <main class="slides">
+    <section><div class="slide-number"></div><h1>AnnuAI — Présentation du projet</h1><p>.NET MAUI Desktop (Windows) • MVVM • EF Core SQLite</p></section>
+    <section><div class="slide-number"></div><h2>1. Contexte & Objectif</h2><ul><li>Créer un annuaire d’entreprise moderne.</li><li>Mode visiteur + mode administrateur.</li><li>Données locales SQLite pour démo rapide.</li></ul></section>
+    <section><div class="slide-number"></div><h2>2. Périmètre fonctionnel</h2><ul><li>Recherche salariés.</li><li>Gestion sites/services/salariés.</li><li>Import RandomUser.</li><li>Export fiche salarié en PDF.</li></ul></section>
+    <section><div class="slide-number"></div><h2>3. Stack technique</h2><ul><li><code>.NET MAUI</code> (UI desktop).</li><li><code>CommunityToolkit.Mvvm</code> (MVVM).</li><li><code>EF Core + SQLite</code> (persistance).</li><li><code>PdfSharpCore</code> (PDF).</li></ul></section>
+    <section><div class="slide-number"></div><h2>4. Architecture</h2><ul><li>Folders: Models, ViewModels, Views, Services, Data.</li><li>Injection de dépendances dans <code>MauiProgram</code>.</li><li>Séparation claire UI / logique / données.</li></ul></section>
+    <section><div class="slide-number"></div><h2>5. Modèle de données</h2><ul><li>Entités: <code>Salarie</code>, <code>Site</code>, <code>Service</code>.</li><li>Relations: salarié → site, salarié → service.</li><li>Seed de données françaises.</li></ul></section>
+    <section><div class="slide-number"></div><h2>6. Parcours visiteur</h2><ul><li>Recherche par nom/prénom/email.</li><li>Filtres par site et service.</li><li>Affichage détail salarié.</li></ul></section>
+    <section><div class="slide-number"></div><h2>7. Export PDF</h2><ul><li>Bouton “Exporter en PDF”.</li><li>Génération fiche salarié complète.</li><li>Sauvegarde dans dossier <code>AppData/exports</code>.</li></ul></section>
+    <section><div class="slide-number"></div><h2>8. Accès administrateur</h2><ul><li>Raccourci clavier <code>Ctrl + Shift + A</code>.</li><li>Page de connexion admin.</li><li>Logs succès/échec d’authentification.</li></ul></section>
+    <section><div class="slide-number"></div><h2>9. Dashboard Admin</h2><ul><li>3 onglets: Sites, Services, Salariés.</li><li>CRUD complet pour chaque entité.</li><li>Validations champs obligatoires + refresh listes.</li></ul></section>
+    <section><div class="slide-number"></div><h2>10. Import RandomUser</h2><ul><li>Appel API <code>randomuser.me</code> (nat=fr).</li><li>Transformation en salariés.</li><li>Affectation auto site/service + insertion SQLite.</li></ul></section>
+    <section><div class="slide-number"></div><h2>11. Qualité & Robustesse</h2><ul><li>Gestion d’erreurs centralisée par service/viewmodel.</li><li>Fichier de logs texte.</li><li>SQLite configurée pour réduire conflits multi-instance.</li></ul></section>
+    <section><div class="slide-number"></div><h2>12. Démonstration (15 min)</h2><ul><li>Visiteur → Export PDF → Admin → CRUD → Import API.</li><li>Montrer logs + configuration technique.</li><li>Conclure sur apports et limites.</li></ul></section>
+    <section><div class="slide-number"></div><h2>13. Conclusion & perspectives</h2><ul><li>Projet fonctionnel et démontrable.</li><li>Prochaines étapes: tests auto, sécurité renforcée, CI/CD.</li><li>Merci.</li></ul></section>
+  </main>
+</body>
+</html>

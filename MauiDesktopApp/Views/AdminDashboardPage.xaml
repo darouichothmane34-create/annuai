@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:vm="clr-namespace:MauiDesktopApp.ViewModels"
+            x:Class="MauiDesktopApp.Views.AdminDashboardPage"
+            x:DataType="vm:AdminDashboardViewModel"
+            Title="Administration">
+
+    <ContentPage Title="Gestion des sites">
+        <Grid Padding="12" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+            <HorizontalStackLayout Spacing="8">
+                <Entry Placeholder="Nom du site" Text="{Binding SiteNom}" WidthRequest="220" />
+                <Entry Placeholder="Ville" Text="{Binding SiteVille}" WidthRequest="180" />
+                <Button Text="Ajouter" Command="{Binding AddSiteCommand}" />
+                <Button Text="Modifier" Command="{Binding UpdateSiteCommand}" />
+                <Button Text="Supprimer" Command="{Binding DeleteSiteCommand}" />
+            </HorizontalStackLayout>
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Sites}" SelectedItem="{Binding SelectedSite}">
+                <CollectionView.ItemTemplate><DataTemplate><Grid ColumnDefinitions="2*,*" Padding="8"><Label Text="{Binding Nom}"/><Label Grid.Column="1" Text="{Binding Ville}"/></Grid></DataTemplate></CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Grid.Row="2" Text="{Binding StatusMessage}" TextColor="Red" />
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="Gestion des services">
+        <Grid Padding="12" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+            <HorizontalStackLayout Spacing="8">
+                <Entry Placeholder="Nom du service" Text="{Binding ServiceNom}" WidthRequest="260" />
+                <Button Text="Ajouter" Command="{Binding AddServiceCommand}" />
+                <Button Text="Modifier" Command="{Binding UpdateServiceCommand}" />
+                <Button Text="Supprimer" Command="{Binding DeleteServiceCommand}" />
+            </HorizontalStackLayout>
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}">
+                <CollectionView.ItemTemplate><DataTemplate><Label Padding="8" Text="{Binding Nom}"/></DataTemplate></CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Grid.Row="2" Text="{Binding StatusMessage}" TextColor="Red" />
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="Gestion des salariés">
+        <Grid Padding="12" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="10">
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                <Entry Placeholder="Prénom" Text="{Binding SalariePrenom}" />
+                <Entry Grid.Column="1" Placeholder="Nom" Text="{Binding SalarieNom}" />
+                <Entry Grid.Column="2" Placeholder="Téléphone fixe" Text="{Binding SalarieFixe}" />
+                <Entry Grid.Column="3" Placeholder="Téléphone portable" Text="{Binding SalariePortable}" />
+            </Grid>
+            <Grid Grid.Row="1" ColumnDefinitions="2*,*,*,Auto,Auto,Auto,Auto" ColumnSpacing="8">
+                <Entry Placeholder="Email" Text="{Binding SalarieEmail}" />
+                <Picker Grid.Column="1" Title="Site" ItemsSource="{Binding Sites}" ItemDisplayBinding="{Binding Nom}" SelectedItem="{Binding SalarieSite}" />
+                <Picker Grid.Column="2" Title="Service" ItemsSource="{Binding Services}" ItemDisplayBinding="{Binding Nom}" SelectedItem="{Binding SalarieService}" />
+                <Button Grid.Column="3" Text="Ajouter" Command="{Binding AddSalarieCommand}" />
+                <Button Grid.Column="4" Text="Modifier" Command="{Binding UpdateSalarieCommand}" />
+                <Button Grid.Column="5" Text="Supprimer" Command="{Binding DeleteSalarieCommand}" />
+            <Button Grid.Column="6" Text="Importer depuis RandomUser" Command="{Binding ImportRandomUserCommand}" />
+            </Grid>
+            <CollectionView Grid.Row="2" ItemsSource="{Binding Salaries}" SelectedItem="{Binding SelectedSalarie}">
+                <CollectionView.ItemTemplate><DataTemplate><Grid ColumnDefinitions="*,*,2*,*,*" Padding="8"><Label Text="{Binding Prenom}"/><Label Grid.Column="1" Text="{Binding Nom}"/><Label Grid.Column="2" Text="{Binding Email}"/><Label Grid.Column="3" Text="{Binding Service.Nom}"/><Label Grid.Column="4" Text="{Binding Site.Nom}"/></Grid></DataTemplate></CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Grid.Row="3" Text="{Binding StatusMessage}" TextColor="Red" />
+        </Grid>
+    </ContentPage>
+</TabbedPage>
